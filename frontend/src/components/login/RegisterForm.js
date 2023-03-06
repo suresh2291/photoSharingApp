@@ -3,7 +3,7 @@ import { useState } from "react";
 import RegisterInput from "../inputs/registerInput";
 import * as Yup from "yup";
 import GenderSelect from "./GenderSelect";
-import DotLoader from "react-spinners/DotLoader";
+import DotLoader from "react-spinners/PropagateLoader";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
@@ -77,6 +77,7 @@ export default function RegisterForm({ setVisible }) {
 
   const registerSubmit = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.post(
         `${serverConfig.port.backendUrl}/${serverConfig.apiPath.users}/register`,
         {
@@ -97,7 +98,7 @@ export default function RegisterForm({ setVisible }) {
         dispatch({ type: "LOGIN", payload: rest });
         Cookies.set("user", JSON.stringify(rest));
         navigate("/");
-      }, 2000);
+      }, 5000);
     } catch (error) {
       setLoading(false);
       setSuccess("");
@@ -216,7 +217,7 @@ export default function RegisterForm({ setVisible }) {
               <div className="reg_btn_wrapper">
                 <button className="blue_btn open_signup">Sign Up</button>
               </div>
-              <DotLoader color="#1876f2" loading={loading} size={30} />
+              <DotLoader color="#36d7b7" loading={loading} size={15} />
               {error && <div className="error_text">{error}</div>}
               {success && <div className="success_text">{success}</div>}
             </Form>

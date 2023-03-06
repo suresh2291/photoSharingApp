@@ -30,7 +30,7 @@ try{
      if (check) {
        return res.status(400).json({
          message:
-           "This email address already exists,try with a different email address",
+         "Sorry, that email address is already taken. Please log in or use a different email address to register.",
        });
     }
     
@@ -58,7 +58,7 @@ try{
             lastName: user.lastName,
             token,
             verified: user.verified,
-            message: 'Register Success! Please activate your email'
+            message: `Great to have you on board, ${user.firstName}! Please check your email and follow the instructions to verify your account.`
         })
 }catch(e){
     res.status(500).json({message: e.message})
@@ -74,10 +74,10 @@ try{
     console.log('user details:  ', user)
     const checkUser = await User.findById(user.id)
     if(checkUser.verified === true){
-       return res.status(400).json({message: "This user is already activated"})
+       return res.status(400).json({message: "Your account has already been activated"})
     }else{
         await User.findByIdAndUpdate(user.id, {verified:true})
-        return res.status(200).json({message: "Account has been activated successfully"})
+        return res.status(200).json({message: "Welcome to our app! Your account is now active and ready to use."})
     }
 
 }catch(e){
@@ -91,13 +91,13 @@ try{
     const {email, password} = req.body
     const user = await User.findOne({ email })
     if(!user){
-        return res.status(400).json({message: "The email address you entered isn't connected to an account."})
+        return res.status(400).json({message: "We're sorry, but the email address you entered doesn't match our records. Please try again or create new account."})
     }
     
     const checkPassword = await bcrypt.compare(password, user.password)
     
     if(!checkPassword){
-        return res.status(400).json({message: "The password that you've entered is incorrect."})
+        return res.status(400).json({message: "Oops! It looks like your password is incorrect. Please try again or click 'forgotten password' to reset it."})
     }
     const token = generateToken({id: user._id.toString()}, '7d')
         res.status(200).json({
@@ -108,7 +108,7 @@ try{
             lastName: user.lastName,
             token,
             verified: user.verified,
-            message: 'logged in successfully'
+            message: `Welcome back ${user.firstName}! We're so excited to have you here! You can now share and discover the most beautiful photos with other users.`
         })
 
 }catch(e){

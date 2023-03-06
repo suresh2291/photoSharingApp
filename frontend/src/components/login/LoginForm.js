@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import LoginInput from "../inputs/loginInput";
 import { useState } from "react";
-import DotLoader from "react-spinners/DotLoader";
+import DotLoader from "react-spinners/PulseLoader";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
@@ -48,7 +48,7 @@ export default function LoginForm({ setVisible }) {
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
       navigate("/");
-        }, 1000);
+        }, 4500);
       
     } catch (error) {
       setLoading(false);
@@ -101,7 +101,7 @@ export default function LoginForm({ setVisible }) {
           <Link to="/forgot" className="forgot_password">
             Forgotten password?
           </Link>
-          <DotLoader color="#1876f2" loading={loading} size={30} />
+          <DotLoader color="#36d7b7" loading={loading} size={20} />
           <div className="sign_splitter"></div>
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}

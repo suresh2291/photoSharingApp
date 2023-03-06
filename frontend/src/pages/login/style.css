@@ -234,6 +234,8 @@
 }
 .success_text {
   color: var(--green-color);
+  margin: 10px auto;
+
 }
 /*----error and success styles -------*/
 

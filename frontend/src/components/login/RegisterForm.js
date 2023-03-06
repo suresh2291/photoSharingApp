@@ -78,7 +78,7 @@ export default function RegisterForm({ setVisible }) {
   const registerSubmit = async () => {
     try {
       const { data } = await axios.post(
-        `${serverConfig.port.baseurl}/${serverConfig.apiPath.users}/register`,
+        `${serverConfig.port.backendUrl}/${serverConfig.apiPath.users}/register`,
         {
           firstName,
           lastName,

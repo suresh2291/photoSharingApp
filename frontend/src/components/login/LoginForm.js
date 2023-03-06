@@ -30,23 +30,29 @@ export default function LoginForm({ setVisible }) {
     password: Yup.string().required("Password is required"),
   });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const loginSubmit = async () => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        `${serverConfig.port.baseurl}/${serverConfig.apiPath.users}/login`,
+        `${serverConfig.port.backendUrl}/${serverConfig.apiPath.users}/login`,
         {
           email,
           password,
         }
       );
-      console.log(data);
+      setError("");
+      setSuccess(data.message);
+      setTimeout(() => {
       dispatch({ type: "LOGIN", payload: data });
       Cookies.set("user", JSON.stringify(data));
       navigate("/");
+        }, 1000);
+      
     } catch (error) {
       setLoading(false);
+      setSuccess("");
       setError(error.response.data.message);
     }
   };
@@ -96,9 +102,9 @@ export default function LoginForm({ setVisible }) {
             Forgotten password?
           </Link>
           <DotLoader color="#1876f2" loading={loading} size={30} />
-
-          {error && <div className="error_text">{error}</div>}
           <div className="sign_splitter"></div>
+          {error && <div className="error_text">{error}</div>}
+          {success && <div className="success_text">{success}</div>}
           <button
             className="blue_btn open_signup"
             onClick={() => setVisible(true)}

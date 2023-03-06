@@ -1,0 +1,9 @@
+{
+    "port": {
+                "doc": "port for server",
+                "baseurl":"http://localhost:3005"
+    },
+    "apiPath":{
+        "users":"api/users"
+    }
+}

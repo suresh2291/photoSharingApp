@@ -47,7 +47,7 @@ try{
         bMonth,
         bDay}).save()
         const verifyEmail = generateToken({id: user._id.toString()}, '30m')
-        const url = `${serverConfig.port.baseurl}/activate/${verifyEmail}`
+        const url = `${serverConfig.port.frontEndUrl}/activate/${verifyEmail}`
         await sendVerificationEmail(user.email, user.firstName, url)
         const token = generateToken({id: user._id.toString()}, '7d')
         res.status(200).json({

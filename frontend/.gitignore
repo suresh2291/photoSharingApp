@@ -6,7 +6,7 @@
 .pnp.js
 
 # ignore all directories with the name configs
-frontend/src/configs
+src/configs/
 
 # testing
 /coverage

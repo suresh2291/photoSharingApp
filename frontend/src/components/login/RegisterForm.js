@@ -95,7 +95,7 @@ export default function RegisterForm({ setVisible }) {
       setSuccess(data.message);
       const { message, ...rest } = data;
       setTimeout(() => {
-        dispatch({ type: "LOGIN", payload: rest });
+        dispatch({ type: "REGISTER", payload: rest });
         Cookies.set("user", JSON.stringify(rest));
         navigate("/");
       }, 5000);

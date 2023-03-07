@@ -63,3 +63,19 @@ a {
   background: rgba(255, 255, 255, 0.768);
   z-index: 99;
 }
+
+
+/*-----Hovers-----*/
+.hover1:hover {
+  background: var(--bg-secondary);
+}
+.hover2:hover {
+  background: var(--bg-third);
+}
+/*-----Hovers-----*/
+
+.card {
+  height: 500px;
+  width: 500px;
+  background: #1876f2;
+}

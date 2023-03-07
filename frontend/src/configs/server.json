@@ -1,9 +1,0 @@
-{
-    "port": {
-        "doc": "port for server",
-        "backendUrl":"http://localhost:3005"
-    },
-    "apiPath":{
-        "users":"api/users"
-    }
-}

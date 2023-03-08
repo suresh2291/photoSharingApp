@@ -33,8 +33,7 @@ export default function SearchMenu({ color, setShowSearchMenu }) {
         >
           {searchIconVisible && (
             <div>
-              {" "}
-              <Search color={color} />{" "}
+              <Search color={color} />
             </div>
           )}
           <input
@@ -55,7 +54,7 @@ export default function SearchMenu({ color, setShowSearchMenu }) {
         <a>Edit</a>
       </div>
       <div className="search_history"></div>
-      <div className="search_resultd scrollbar"></div>
+      <div className="search_results scrollbar"></div>
     </div>
   );
 }

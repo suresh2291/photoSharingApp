@@ -87,7 +87,10 @@ export default function Header() {
               setShowAllMenu((prev) => !prev);
             }}
           >
-            <Menu />
+            <div style={{transform: "translateY(2px)"}}>
+               <Menu />
+            </div>
+           
           </div>
            {showAllMenu && <AllMenu />}
         </div>

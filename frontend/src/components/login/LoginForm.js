@@ -45,7 +45,7 @@ export default function LoginForm({ setVisible }) {
       setError("");
       setSuccess(data.message);
       setTimeout(() => {
-      dispatch({ type: "LOGIN", payload: data });
+      dispatch({ type: "USERDATA", payload: data });
       Cookies.set("user", JSON.stringify(data));
       navigate("/");
         }, 4500);

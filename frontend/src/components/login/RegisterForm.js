@@ -70,11 +70,9 @@ export default function RegisterForm({ setVisible }) {
   });
   const [dateError, setDateError] = useState("");
   const [genderError, setGenderError] = useState("");
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-
   const registerSubmit = async () => {
     try {
       setLoading(true);
@@ -95,7 +93,7 @@ export default function RegisterForm({ setVisible }) {
       setSuccess(data.message);
       const { message, ...rest } = data;
       setTimeout(() => {
-        dispatch({ type: "LOGIN", payload: rest });
+        dispatch({ type: "USERDATA", payload: rest });
         Cookies.set("user", JSON.stringify(rest));
         navigate("/");
       }, 5000);
@@ -105,6 +103,7 @@ export default function RegisterForm({ setVisible }) {
       setError(error.response.data.message);
     }
   };
+
   return (
     <div className="blur">
       <div className="register">

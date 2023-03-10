@@ -14,6 +14,10 @@ photoAppService.prototype.getUsers = async function (req, res, next) {
     res.send("welcome from user home")
 }
 
+photoAppService.prototype.Auth = async function (req, res, next) {
+    res.send(`welcome from user`)
+}
+
 photoAppService.prototype.registerUser = async function (req, res, next) {
 try{
     const {
@@ -47,7 +51,7 @@ try{
         bMonth,
         bDay}).save()
         const verifyEmail = generateToken({id: user._id.toString()}, '30m')
-        const url = `${serverConfig.port.frontEndUrl}/activate/${verifyEmail}`
+        const url = `${serverConfig.port.frontEndUrl}/activate?token=${verifyEmail}`
         await sendVerificationEmail(user.email, user.firstName, url)
         const token = generateToken({id: user._id.toString()}, '7d')
         res.status(200).json({
@@ -58,32 +62,52 @@ try{
             lastName: user.lastName,
             token,
             verified: user.verified,
-            message: `Great to have you on board, ${user.firstName}! Please check your email and follow the instructions to verify your account.`
+            message: `Great to have you on board, ${user.firstName}! Please check your email. After you have verified your email, you can close this window and start using your account.`
         })
 }catch(e){
     res.status(500).json({message: e.message})
 }
-
 }
 
 
 photoAppService.prototype.activateUser = async function(req, res, next) {
 try{
+    const validUser = req.user.id;
     const { token } = req.body
     const user = jwt.verify(token, serverConfig.jwtToken)
-    console.log('user details:  ', user)
     const checkUser = await User.findById(user.id)
+    if (validUser !== user.id) {
+        return res.status(400).json({
+          message: "You don't have the authorization to complete this operation.",
+        });
+    }
     if(checkUser.verified === true){
-       return res.status(400).json({message: "Your account has already been activated"})
+       return res.status(400).json({message: "Your account has already been activated. You can close this window and start using your account."})
     }else{
         await User.findByIdAndUpdate(user.id, {verified:true})
         return res.status(200).json({message: "Welcome to our app! Your account is now active and ready to use."})
     }
-
 }catch(e){
     res.status(500).json({message: e.message})
 }
 }
+
+
+photoAppService.prototype.resendVerification = async function(req, res, next) {
+    try{
+        const id = req.user.id;
+        const user = await User.findById(id)
+        if(user.verified === true){
+           return res.status(400).json({message: "Your account has already been activated."})
+        }
+        const verifyEmail = generateToken({id: user._id.toString()}, '1d')
+        const url = `${serverConfig.port.frontEndUrl}/activate?token=${verifyEmail}`
+        await sendVerificationEmail(user.email, user.firstName, url)
+        return res.status(200).json({message: "Email verification send to your email."})
+    }catch(e){
+        res.status(500).json({message: e.message})
+    }
+    }
 
 photoAppService.prototype.login = async function(req, res, next) 
 {
@@ -115,6 +139,7 @@ try{
     res.status(500).json({message: e.message})
 }
 }
+
 module.exports = {
     getInst: function() {
         return new photoAppService();

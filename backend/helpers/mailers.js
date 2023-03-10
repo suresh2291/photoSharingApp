@@ -48,8 +48,8 @@ async function sendVerificationEmail(emailId, name, url) {
   const mailOptions = {
     from: serverConfig.google.mailId,
     to: emailId.toString(),
-    subject: "Photo Sharing Email Verification",
-    html: `<div style="color:#00bfff;font-size:30px;margin:10px 0;text-align:center">Email Confirmation</div><div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">Hey ${name}! you're almost ready to start using the Photo Sharing App. Please click the button below to verify your email address.</span></div><br><a href=${url} style="width:200px;padding:10px 15px;display:block;margin-left:auto;margin-right:auto;background:#4c649b;color:#fff;text-decoration:none;text-align:center;font-weight:600">Confirm Your Account</a>`,
+    subject: `Welcome ${name}! Verify your account`,
+    html: `<div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">Great to have you on board ${name}!, To finish setting up your Photo Sharing and Annotation App account, we need to verify that this email address belongs to you.</span></div><br><a href=${url} style="width:200px;padding:10px 15px;display:block;margin-left:auto;margin-right:auto;background:#4c649b;color:#fff;text-decoration:none;text-align:center;font-weight:600">Confirm Your Account</a>`,
   };
   smtp.sendMail(mailOptions, (err, res) => {
     if (err) return err;

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {serverConfig} = require('../../configs/index')
 const {ObjectId} = mongoose.Schema
 const userSchema = mongoose.Schema({
   firstName: {
@@ -44,7 +45,7 @@ const userSchema = mongoose.Schema({
   avatar: {
     type:String,
     trim:true,
-    default: 'https://res.cloudinary.com/duwhuzgpi/image/upload/v1676527050/common/istockphoto-1393750072-612x612_nll0xc.jpg'
+    default: serverConfig.avatar.default
   },
   gender: {
     type: String,

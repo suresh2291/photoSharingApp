@@ -7,12 +7,11 @@ import DotLoader from "react-spinners/PropagateLoader";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import DOBSelect from "./DOBSelect";
 const {serverConfig} = require('../../configs/index')
 export default function RegisterForm({ setVisible }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const userInfos = {
     firstName: "",
     lastName: "",
@@ -91,12 +90,11 @@ export default function RegisterForm({ setVisible }) {
       );
       setError("");
       setSuccess(data.message);
-      const { message, ...rest } = data;
       setTimeout(() => {
-        dispatch({ type: "USERDATA", payload: rest });
-        Cookies.set("user", JSON.stringify(rest));
-        navigate("/");
-      }, 5000);
+        Cookies.set("user", JSON.stringify(data));
+      }, 2000);
+      setLoading(false);
+      <Navigate to="/login" />
     } catch (error) {
       setLoading(false);
       setSuccess("");

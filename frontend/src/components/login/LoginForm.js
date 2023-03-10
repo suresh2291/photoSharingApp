@@ -42,13 +42,24 @@ export default function LoginForm({ setVisible }) {
           password,
         }
       );
-      setError("");
-      setSuccess(data.message);
-      setTimeout(() => {
-      dispatch({ type: "USERDATA", payload: data });
-      Cookies.set("user", JSON.stringify(data));
-      navigate("/");
-        }, 4500);
+      if(data.verified){
+        setError("");
+        setSuccess(data.message);
+        setTimeout(() => {
+          dispatch({ type: "USERDATA", payload: data });
+          Cookies.set("user", JSON.stringify(data));
+          navigate("/");
+            }, 3000);
+        setLoading(false);
+      }
+      /*else{
+        setTimeout(() => {
+        setError("It seems like you have not verified your email yet. Please check your inbox for an email from us with instructions on how to verify your account.");
+        navigate("/login");
+        setLoading(false);
+            }, 3000);
+      }*/
+     
       
     } catch (error) {
       setLoading(false);

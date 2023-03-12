@@ -1,14 +1,17 @@
 
 const User = require('../db/schemas/User')
+const Code = require('../db/schemas/Code')
 const {serverConfig} = require('../configs/index')
 const { generateToken } = require('../helpers/tokens')
 const { validateUsername } = require('../helpers/validations')
+const generateCode = require("../helpers/generateCode");
 const {generatePassword} = require('../modules/password') 
-const { sendVerificationEmail } = require('../helpers/mailers')
+const { sendVerificationEmail, sendResetPasswordEmail } = require('../helpers/mailers')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 function photoAppService() {}
+/*-----------------------------------USERS--------------------------------*/
 photoAppService.prototype.getUsers = async function (req, res, next) {
     console.log('getUsers')
     res.send("welcome from user home")
@@ -62,7 +65,7 @@ try{
             lastName: user.lastName,
             token,
             verified: user.verified,
-            message: `Great to have you on board, ${user.firstName}! Please check your email. After you have verified your email, you can close this window and start using your account.`
+            message: `Please check your email. After you have verified your email, you can close this window and start using your account.`
         })
 }catch(e){
     res.status(500).json({message: e.message})
@@ -139,6 +142,84 @@ try{
     res.status(500).json({message: e.message})
 }
 }
+/*-----------------------------------USERS--------------------------------*/
+
+
+/*-----------------------------------RESET PASSWORD--------------------------------*/
+photoAppService.prototype.findUser = async function (req, res, next) {
+  try {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email }).select("-password");
+        if (!user) {
+          return res.status(400).json({
+            message: "Account does not exists.",
+          });
+        }
+        return res.status(200).json({
+          email: user.email,
+          picture: user.avatar,
+        });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+  } catch (error) {
+    res.status(500).json({ message: e.message });
+  }
+};
+
+photoAppService.prototype.verifyCode = async function (req, res, next) {
+    try {
+        const { email, code } = req.body;
+        const user = await User.findOne({ email });
+        const Dbcode = await Code.findOne({ user: user._id });
+        if (Dbcode.code !== code) {
+          return res.status(400).json({
+            message: "Verification code is wrong..",
+          });
+        }
+        return res.status(200).json({ message: "code verified" });
+    } catch (error) {
+      res.status(500).json({ message: e.message });
+    }
+  };
+
+photoAppService.prototype.sendResetPasswordCode = async function (req, res, next) {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email }).select("-password");
+    await Code.findOneAndRemove({ user: user._id });
+    const code = generateCode();
+    await new Code({
+      code,
+      user: user._id,
+    }).save();
+    sendResetPasswordEmail(user.email, user.first_name, code);
+    return res.status(200).json({
+      message: "Email reset code has been sent to your email",
+    });
+  } catch (error) {
+    res.status(500).json({ message: e.message });
+  }
+};  
+
+photoAppService.prototype.changePassword = async function (req, res, next) {
+    
+    try {
+    const { email, password } = req.body;
+    const newPassword = await generatePassword(req.body.password)
+  await User.findOneAndUpdate(
+    { email },
+    {
+      password: newPassword,
+    }
+  );
+  return res.status(200).json({ message: "password changed" });
+    } catch (error) {
+      res.status(500).json({ message: e.message });
+    }
+  };
+/*-----------------------------------RESET PASSWORD--------------------------------*/
 
 module.exports = {
     getInst: function() {

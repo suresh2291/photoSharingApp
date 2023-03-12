@@ -49,7 +49,8 @@ async function sendVerificationEmail(emailId, name, url) {
     from: serverConfig.google.mailId,
     to: emailId.toString(),
     subject: `Welcome ${name}! Verify your account`,
-    html: `<div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">Great to have you on board ${name}!, To finish setting up your Photo Sharing and Annotation App account, we need to verify that this email address belongs to you.</span></div><br><a href=${url} style="width:200px;padding:10px 15px;display:block;margin-left:auto;margin-right:auto;background:#4c649b;color:#fff;text-decoration:none;text-align:center;font-weight:600">Confirm Your Account</a>`,
+    html: `<div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">Great to have you on board ${name}!, To finish setting up your Photo Sharing and Annotation App account, we need to verify that this email address belongs to you.</span></div><br><a href=${url} style="width:200px;padding:10px 15px;display:block;margin-left:auto;margin-right:auto;background:#4c649b;color:#fff;text-decoration:none;text-align:center;font-weight:600">Confirm Your Account</a><br/><span>Best regards,<br/>
+    PhotoAnnotation Team<span/>`,
   };
   smtp.sendMail(mailOptions, (err, res) => {
     if (err) return err;
@@ -57,4 +58,51 @@ async function sendVerificationEmail(emailId, name, url) {
   });
 }
 
-module.exports = { sendVerificationEmail };
+async function sendResetPasswordEmail(emailId, name, code) {
+  auth.setCredentials({
+    refresh_token: serverConfig.google.refreshToken,
+  });
+  // Store the refresh token for future use
+  const refreshToken = serverConfig.google.refreshToken;
+
+  // Use the OAuth2 client to obtain an access token
+  const getAccessToken = () => {
+    return new Promise((resolve, reject) => {
+      oauth2Client.getAccessToken((err, accessToken) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(accessToken);
+        }
+      });
+    });
+  };
+
+  const smtp = mailer.createTransport({
+    service: "gmail",
+    auth: {
+      type: "OAuth2",
+      user: serverConfig.google.mailId,
+      clientId: serverConfig.google.id,
+      clientSecret: serverConfig.google.secret,
+      refreshToken,
+      accessToken: async () => {
+        // Get a new access token using the refresh token
+        const accessToken = await getAccessToken();
+        return accessToken;
+      },
+    },
+  });
+  const mailOptions = {
+    from: serverConfig.google.mailId,
+    to: emailId.toString(),
+    subject: `Reset Password`,
+    html: `<div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">Dear ${name}, We received a request to reset your password for your account with us. To reset your password, please use the below generated code:</span></div><br><span style="width:200px;padding:10px 15px;display:block;margin-left:auto;margin-right:auto;background:#4c649b;color:#fff;text-decoration:none;text-align:center;font-weight:600">${code}</span><br/><div><span style="text-align:center;display:block;margin-left:auto;margin-right:auto">If you did not request a password reset, please ignore this email. Your account will remain secure.</span></div><br/><span>Best regards,<br/><span style="text-align:center
+    PhotoAnnotation Team<span/>`,
+  };
+  smtp.sendMail(mailOptions, (err, res) => {
+    if (err) return err;
+    return res;
+  });
+}
+module.exports = { sendVerificationEmail, sendResetPasswordEmail };

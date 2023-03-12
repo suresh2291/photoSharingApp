@@ -109,11 +109,11 @@ export default function LoginForm({ setVisible }) {
               </Form>
             )}
           </Formik>
-          <Link to="/forgot" className="forgot_password">
+          <Link to="/reset" className="forgot_password">
             Forgotten password?
           </Link>
           <DotLoader color="#36d7b7" loading={loading} size={20} />
-          <div className="sign_splitter"></div>
+          {/* <div className="sign_splitter"></div> */}
           {error && <div className="error_text">{error}</div>}
           {success && <div className="success_text">{success}</div>}
           <button

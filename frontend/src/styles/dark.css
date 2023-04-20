@@ -1,0 +1,155 @@
+
+.dark {
+  --bg-primary: #242526;
+  --bg-secondary: #18191a;
+  --bg-third: #3a3b3c;
+  --bg-forth: #3a3b3c;
+  --color-primary: #e4e6eb;
+  --color-secondary: #b0b3b8; 
+}
+
+body:has(.dark) {
+  background-color: #18191a !important;
+  color: var(--color-primary) !important;
+}
+
+.dark .row {
+  background:#18191a;
+}
+
+.dark .post_profile_name {
+  color: azure;
+}
+
+.dark .nav-link {
+  filter: invert(1);
+}
+
+.dark .login_1 img{
+  filter: invert(100%);;
+}
+
+.dark .logo_circle img{
+  filter: invert(100%);;
+}
+
+.dark .blur {
+  background: rgba(82, 82, 82, 0.5);
+}
+
+.dark .box_profile_name,
+.dark .heading,
+.dark .post_text,
+.dark .box_header,
+.dark .addto_text{
+  color: azure;
+}
+
+.dark .hover1:hover {
+  background: var(--bg-third);
+}
+
+/* ----Header -----*/
+.dark .header_right svg {
+  fill: #3c3a3a;
+}
+
+.dark .all_right_circle i {
+  filter: invert(100%);
+}
+
+.dark .active_header {
+  background: var(--light-blue-color) !important;
+}
+
+.dark .active_header svg {
+  fill: var(--blue-color) !important;
+}
+
+.dark .header_right .circle_icon{
+  background-color: #18191a;
+}
+
+.dark .header_right .circle_icon svg{
+  fill:antiquewhite;
+}
+
+.dark .header_right .circle_icon:hover {
+  background: #888888;
+}
+
+.dark input[type="text"] {
+  color: var(--color-primary);
+}
+
+.dark .small_circle i,
+.dark .circle i {
+  filter: invert(100%) !important;
+}
+
+/* ----Header -----*/
+.dark .left_home .small_circle {
+  background: var(--bg-fifth);
+}
+.dark .open_post:hover {
+  background: #333;
+}
+.dark .post_action i {
+  filter: invert(90%);
+}
+.dark .post_menu i,
+.dark .post_menu img {
+  filter: invert(100%);
+}
+.dark .comment_circle_icon i {
+  color: azure;
+}
+.dark .comment_circle_icon:hover {
+  background: #555;
+}
+.dark .box_privacy i,
+.dark .box_privacy img {
+  color: azure;;
+}
+.dark .emoji_icon_large:hover {
+  color: azure;
+}
+.dark .add_pics_wrap i {
+  color: azure;
+}
+/*----profile---*/
+.dark .active_link:hover {
+  background: var(--light-blue-color);
+}
+.dark .open_cover_menu i,
+.dark .open_cover_menu img {
+  color: azure;
+}
+.dark .profile_circle i {
+  color: azure;
+}
+.dark .gray_btn {
+  background: var(--bg-third);
+}
+.dark .gray_btn:hover {
+  background: #777;
+}
+.dark .gray_btn i,
+.dark .gray_btn img {
+  filter: invert(100%);
+}
+.dark .profile_container svg {
+  color: azure;
+}
+.dark .grid_icon {
+  color: azure;
+}
+.dark .pictureBox i {
+  color: azure;
+}
+.dark .slider i {
+  color: azure;
+}
+.dark .flex_p_t i {
+  color: azure;
+}

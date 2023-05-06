@@ -1,3 +1,6 @@
+/**
+ * This component is responsible for creating and editing the user detailsin profile.
+ */
 import { useEffect, useState } from "react";
 import Bio from "./Bio";
 import "./style.css";

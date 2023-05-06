@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useClickOutside from "../../helpers/clickOutside";
 import { Return, Search } from "../../svg";
 import {
@@ -8,12 +8,9 @@ import {
   search,
 } from "../../functions/user";
 import { ColorRing } from "react-loader-spinner";
-import { Link, Navigate } from "react-router-dom";
-import { serverConfig } from "../../configs";
-import axios from "axios";
-import { photosReducer } from "../../functions/reducers";
+import { Link } from "react-router-dom";
 
-export default function SearchMenu({ color, setShowSearchMenu, token, username }) {
+export default function SearchMenu({ color, setShowSearchMenu, token }) {
   const [searchIconVisible, setSearchIconVisible] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -22,7 +19,6 @@ export default function SearchMenu({ color, setShowSearchMenu, token, username }
   const menu = useRef(null);
   const removeUser = useRef(null);
   const input = useRef(null);
-
   useClickOutside(menu, () => {
     setShowSearchMenu(false);
   });
@@ -32,38 +28,8 @@ export default function SearchMenu({ color, setShowSearchMenu, token, username }
     fetchSearchHistory();
   }, []);
 
-  const [{ photoLoading, photoError, photos }, photoDispatch] = useReducer(photosReducer, {
-    photoLoading: false,
-    photos: {},
-    photoError: "",
-  });
-  const path = `${username}/*`;
-  const max = 30;
-  const sort = "desc";
-  useEffect(() => {
-    getData();
-  }, []);
-  const getData = async () => {
-    try {
-      photoDispatch({ type: "PHOTOS_REQUEST" });
-      const images = await axios.post(
-        `${serverConfig.port.backendUrl}/${serverConfig.apiPath.profile}/profile_images`,
-        { path, sort, max },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(images.data)
-        photoDispatch({ type: "PHOTOS_SUCCESS", payload: images.data });
-    } catch (error) {
-      photoDispatch({ type: "PHOTOS_ERROR", payload:error.response.data.message, });
-    }
-  };
-
-
   const debounceTimeout = useRef(null);
+
   const fetchSearchHistory = async () => {
     try {
       const response = await getSearchHistory(token);
@@ -199,10 +165,10 @@ export default function SearchMenu({ color, setShowSearchMenu, token, username }
           <div>
             {searchResults &&
               searchResults.map((user) => (
-                <Link 
+                <Link
                   to={`/profile/${user?.userName}`}
                   className="search_user_item hover1"
-                  //onClick={() =>  getData()}
+                  //onClick={() => addToSearchHistoryHandler(user._id)}
                   key={user?._id}
                 >
                   <img src={user?.avatar} alt="" />

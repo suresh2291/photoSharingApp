@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Friends from "./pages/friends";
 import Photos from "./pages/Photos";
-import ResendVerification from "./components/home/ResendVerification";
+import ResendVerification from "./pages/ResendVerification";
 
 function App() {
   const [postVisible, setPostVisible] =  useState(false);
@@ -47,8 +47,9 @@ function App() {
             exact
           />
           <Route path="/" element={<Home setPostVisible={setPostVisible} user={user} postVisible ={postVisible}/>} exact />
-          <Route path='/activate' element={<Activate/>} exact/>
+          <Route path="/activate" element={<Activate />} exact />
         </Route>
+        
         <Route path='/reset' element={<Reset/>} exact />
         <Route path='/verify' element={<ResendVerification />} exact />
       </Routes>

@@ -1,3 +1,7 @@
+/**
+ * This components is responsible for showing the friends page in home middle.
+ * It has left and right, where in left side will show the menu and right side will show the requested friends, sent requests and friends.
+ */
 import { useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import Header from "../../components/header";

@@ -1,5 +1,19 @@
+/**
+ * The component imports necessary dependencies such as useEffect, useRef, useState, EmojiPicker, and useMediaQuery from various libraries.
+ * The component receives several props such as text, user, setText, type2, background, and setBackground.
+ * Inside the component, there are several state variables defined using the useState hook to manage the component's behavior.
+ * The component uses the useEffect hook to update the cursor position in the text area when the cursorPosition state variable changes.
+ * There is a handleEmoji function that is triggered when an emoji is clicked. It updates the text state by inserting the selected emoji at the current cursor position and also updates the cursor position accordingly.
+ * An array named postBackgrounds contains URLs of different background images used in the component.
+ * The component defines event handlers (backgroundHanlder, removeBackground) for managing the background images displayed.
+ * The sm variable is set using the useMediaQuery hook to determine if the screen size is smaller than 550px.
+ * The component renders a div element that contains a textarea for entering text, and there are various classNames and styles applied conditionally based on the component's state and props.
+ * There is an EmojiPicker component that is conditionally rendered based on the picker state variable.
+ * An image is rendered that toggles the display of background images when clicked.
+ * The background images are displayed in a div element when showBgs state is true, and clicking on an image sets the background accordingly.
+ */
 import { useEffect, useRef, useState } from "react";
-import EmojiPicker  from "emoji-picker-react";
+import EmojiPicker from "emoji-picker-react";
 import { useMediaQuery } from "react-responsive";
 
 export default function EmojiPickerBackgrounds({
@@ -19,8 +33,7 @@ export default function EmojiPickerBackgrounds({
   useEffect(() => {
     textRef.current.selectionEnd = cursorPosition;
   }, [cursorPosition]);
-  const handleEmoji = (e,{ emoji }) => {
-  
+  const handleEmoji = (e, { emoji }) => {
     const ref = textRef.current;
     ref.focus();
     const start = text.substring(0, ref.selectionStart);
@@ -54,6 +67,7 @@ export default function EmojiPickerBackgrounds({
   const sm = useMediaQuery({
     query: "(max-width:550px)",
   });
+  
   return (
     <div className={type2 ? "images_input" : ""}>
       <div className={!type2 ? "flex_center" : ""} ref={bgRef}>
@@ -71,7 +85,7 @@ export default function EmojiPickerBackgrounds({
               background
                 ? Math.abs(textRef.current.value.length * 0.1 - 32)
                 : "0"
-            }%`,
+            }%`
           }}
         ></textarea>
       </div>
@@ -82,7 +96,7 @@ export default function EmojiPickerBackgrounds({
               type2 ? "movepicker2" : "rlmove"
             }`}
           >
-           <EmojiPicker 
+            <EmojiPicker
               onEmojiClick={handleEmoji}
               emojiStyle="google"
               theme="auto"
@@ -118,7 +132,6 @@ export default function EmojiPickerBackgrounds({
             ))}
           </div>
         )}
-
         <i
           className={`emoji_icon_large ${type2 ? "moveleft" : ""}`}
           onClick={() => {

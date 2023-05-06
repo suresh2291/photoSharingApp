@@ -1,3 +1,6 @@
+/**
+ * This component is responsible for displaying the list of menu items in right header. It has both right and left menu.
+ */
 import { useRef } from "react";
 import { menu, create } from "../../metaData/allMenu";
 import AllMenuItems from "./AllMenuItems";

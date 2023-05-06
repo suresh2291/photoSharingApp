@@ -1,15 +1,18 @@
 .profile {
   color: var(--color-primary);
 }
+
 .profile_top {
   margin-top: 56px;
   box-shadow: 0 1px 2px var(--shadow-1);
   background: var(--bg-primary);
 }
+
 .profile_container {
   max-width: 945px;
   margin: 0 auto;
 }
+
 .profile_cover {
   position: relative;
   height: 350px;
@@ -20,6 +23,7 @@
   object-fit: fill;
   animation: neon-glow 20s ease alternate infinite;
 }
+
 .cover {
   width: 100%;
   height: 100%;
@@ -27,11 +31,13 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
+
 .udpate_cover_wrapper {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
 }
+
 .open_cover_update {
   background: #fff;
   padding: 7px 15px;
@@ -44,10 +50,12 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
 .open_cover_update i {
   transform: scale(0.9);
   margin-top: 4px;
 }
+
 .open_cover_menu {
   background: var(--bg-primary);
   position: absolute;
@@ -59,6 +67,7 @@
     inset 0 0 0 px var(--shadow-inset);
   z-index: 99;
 }
+
 .open_cover_menu_item {
   display: flex;
   align-items: center;
@@ -69,6 +78,7 @@
   font-size: 14px;
   border-radius: 10px;
 }
+
 .profile_img_wrap {
   position: relative;
   display: flex;
@@ -78,14 +88,17 @@
   margin-bottom: -2.8rem;
   z-index: 1;
 }
+
 .profile_w_left {
   display: flex;
   gap: 1rem;
   padding: 1rem 13px 0 13px;
 }
+
 .profile_w_img {
   position: relative;
 }
+
 .profile_w_bg {
   width: 180px;
   height: 180px;
@@ -98,33 +111,40 @@
   object-fit: fill;
   animation: neon-glow 20s ease alternate infinite;
 }
+
 /* Define the neon glow animation */
 @keyframes neon-glow {
   0% {
     border-color: rgb(93, 237, 237);
     box-shadow: 0 0 15px rgb(46, 215, 249);
   }
+
   25% {
     border-color: coral;
     box-shadow: 0 0 15px rgb(255, 89, 28);
   }
+
   50% {
     border-color: skyblue;
     box-shadow: 0 0 15px rgb(48, 193, 250);
   }
+
   75% {
     border-color: rgb(0, 30, 255);
     box-shadow: 0 0 1px rgb(8, 94, 253);
   }
+
   100% {
     border-color: rgb(5, 101, 106);
     box-shadow: 0 0 15px rgb(1, 177, 180);
   }
 }
+
 /* Apply the animation to the element */
 .profile_w_bg:hover {
   filter: brightness(110%);
 }
+
 .profile_circle {
   position: absolute;
   bottom: 4.5rem;
@@ -137,6 +157,7 @@
   place-items: center;
   cursor: pointer;
 }
+
 .profile_name {
   display: flex;
   align-items: center;
@@ -144,26 +165,31 @@
   font-weight: 700;
   font-size: 32px;
 }
+
 .profile_w_right {
   display: flex;
   gap: 8px;
   padding: 0 18px;
   margin-bottom: 7px;
 }
+
 .invert {
   filter: invert(100%);
 }
+
 /*--Menu-------*/
 .profile_menu_wrap {
   position: relative;
   padding: 0 2.2rem;
 }
+
 .profile_menu {
   position: relative;
   border-top: 1px solid var(--border-color);
   display: flex;
   padding: 0;
 }
+
 .profile_menu a {
   height: 54px;
   width: 78.5px;
@@ -177,6 +203,7 @@
   margin: 3px 0;
   color: var(--color-secondary);
 }
+
 .profile_menu_active {
   height: 60px !important;
   width: 65px !important;
@@ -185,6 +212,7 @@
   border-bottom: 3px solid var(--blue-color);
   border-radius: 0 !important;
 }
+
 .p10_dots {
   background: var(--bg-third);
   position: absolute;
@@ -195,26 +223,31 @@
   place-items: center;
   padding: 8px 14px;
 }
+
 .p10_dots svg {
   width: 16px;
   height: 16px;
   margin-top: 2px;
   margin-left: 2px;
 }
+
 /*------ppl u may know------*/
 .profile_bottom {
   margin-top: 1px;
   background: var(--bg-secondary);
 }
+
 .bottom_container {
   padding: 10px 2.2rem;
 }
+
 .pplumayknow_list {
   display: flex;
   gap: 5px;
   align-items: center;
   height: 240px;
 }
+
 .pplumayknow {
   width: 100%;
   height: 100%;
@@ -222,6 +255,7 @@
   border: 3px solid var(--blue-color);
   padding: 10px 15px;
 }
+
 .pplumayknow_header {
   display: flex;
   align-items: center;
@@ -229,6 +263,7 @@
   font-weight: 600;
   font-size: 16px;
 }
+
 .addfriendCard {
   position: relative;
   height: 100%;
@@ -237,15 +272,18 @@
   overflow: hidden;
   background: var(--bg-primary);
 }
+
 .addfriend_imgsmall {
   width: 100%;
   height: 140px;
 }
+
 .addfriend_imgsmall img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .addfriend_infos {
   padding: 10px;
   text-align: center;
@@ -253,17 +291,21 @@
   flex-direction: column;
   gap: 5px;
 }
+
 .addfriend_name {
   font-size: 16px;
   font-weight: 600;
 }
+
 .light_blue_btn img {
   width: 20px;
 }
+
 .pplumayknow_list .light_blue_btn {
   color: var(--blue-color);
 }
-.create_post{
+
+.create_post {
   background: var(--bg-primary);
   border-radius: 10px;
   box-shadow: 0 1px 2px var(--shadow-1);
@@ -271,26 +313,31 @@
   width: 100%;
   cursor: pointer;
 }
+
 .profile_grid {
   display: grid;
   grid-template-columns: 1fr 1.4fr;
   gap: 10px;
 }
+
 /*------ppl u may know------*/
 .left_header_grid {
   font-size: 22px;
   font-weight: 600;
 }
+
 .flex {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .grid2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr) !important;
   font-size: 14px;
 }
+
 .view_type {
   width: 100%;
   display: flex;
@@ -304,9 +351,11 @@
 .grid2 .active {
   color: var(--blue-color)
 }
-.profile_right{
+
+.profile_right {
   margin-top: -50px;
 }
+
 .no_posts {
   display: flex;
   align-items: center;
@@ -315,14 +364,16 @@
   font-size: 20px;
   color: var(--color-secondary);
 }
+
 /*-----profile card--------*/
 .profile_card {
   background: var(--bg-primary);
   border-radius: 10px;
   box-shadow: 0 1px 2px var(--shadow-1);
   padding: 10px 15px;
-  margin-top:30px;
+  margin-top: 30px;
 }
+
 .profile_card_header {
   display: flex;
   align-items: center;
@@ -330,6 +381,7 @@
   font-weight: 700;
   font-size: 20px;
 }
+
 .profile_header_link {
   font-weight: normal;
   font-size: 16px;
@@ -337,67 +389,83 @@
   cursor: pointer;
   padding: 5px 10px;
 }
+
 .profile_header_link:hover {
   background: var(--bg-secondary);
 }
+
 .profile_card_count {
   color: var(--color-secondary);
 }
+
 .profile_card_grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin-top: 10px;
 }
+
 .profile_photo_card {
   width: 100%;
   height: 100%;
   cursor: pointer;
 }
+
 .profile_photo_card:hover {
   filter: brightness(110%);
 }
+
 .profile_photo_card img {
   width: 100%;
   height: 105px;
   object-fit: cover;
   border-radius: 10px;
 }
+
 .profile_photo_card span {
   color: var(--color-primary);
   font-size: 14px;
   padding-left: 1px;
 }
+
 .profile_friend_count {
   font-weight: 600;
 }
+
 .profile_friend_imgs {
   display: flex;
   align-items: center;
 }
+
 .profile_friend_imgs img {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   box-shadow: 0 1px 2px var(--shadow-1);
 }
+
 .profile_friend_imgs img:hover {
   filter: brightness(110%);
 }
+
 .friends_menu_wrap {
   position: relative;
 }
+
 .cover_crooper {
   height: 100%;
 }
+
 .cover_crooper img {
   object-fit: cover;
   width: 100%;
 }
+
 .cover_crooper .reactEasyCrop_Container {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
+
 .save_changes_cover {
   z-index: 999999999;
   position: fixed;
@@ -412,39 +480,48 @@
   font-size: 14px;
   color: var(--color-primary);
 }
+
 .save_changes_left {
   display: flex;
   align-items: center;
   gap: 10px;
   color: #fff;
 }
+
 .save_changes_left i {
   filter: invert(100%);
 }
+
 .save_changes_right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .save_changes_right button {
   padding: 10px;
 }
+
 .save_changes_right button:first-of-type {
   width: 100px;
   background: #39393f;
 }
+
 .save_changes_right button:last-of-type {
   width: 160px;
 }
+
 .selectCoverBox {
   width: 570px !important;
   max-width: 80vw;
 }
+
 .selectCoverBox_links {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   padding: 5px 15px;
 }
+
 .selectCoverBox_link {
   display: flex;
   align-items: center;
@@ -454,101 +531,149 @@
   padding: 5px 0 10px 0;
   cursor: pointer;
 }
+
 .selectCoverBox_link:first-of-type {
   color: var(--blue-color);
   border-bottom: 3px solid var(--blue-color);
 }
+
 /*-----profile card--------*/
-/* @media (max-width: 900px) {
+@media (max-width: 900px) {
   .profile_w_left {
     flex-direction: column;
     align-items: center;
   }
+
   .profile_w_col {
     transform: translateY(-3.6rem);
   }
+
   .profile_w_right {
     transform: translateY(-3.6rem);
   }
+
   .profile_img_wrap {
     flex-direction: column;
     justify-content: center;
   }
+
   .profile_circle {
     right: 1rem;
   }
+
   .profile_name {
     padding-bottom: 10px;
   }
+
   .pplumayknow {
     display: none;
   }
+
   .profile_grid {
     grid-template-columns: 1fr;
     width: 95%;
   }
+
   .friendship {
     transform: translateY(-4rem);
   }
+
   .profile_friend_count {
     text-align: center;
     transform: translateY(-15px);
   }
+
   .profile_friend_imgs {
     justify-content: center;
     transform: translateY(-10px);
   }
 }
+
 @media (max-width: 650px) {
   .profile_menu_wrap {
     display: none;
   }
 }
+
 @media (max-width: 510px) {
   .udpate_cover_wrapper {
     bottom: 3rem;
   }
 }
+
 @media (max-width: 405px) {
   .friendship {
     flex-direction: column;
   }
-} */
+}
+
+@media only screen and (min-width: 320px) and (max-width: 450px) {
+  .profile_left {
+    margin-left: -18px;
+    margin-right: -23px;
+    margin-top: 10px;
+  }
+  .profile_right {
+    margin-left: -24px;
+    margin-right: -5px;
+    margin-top: 10px;
+  }
+  .flex {
+  margin-left: 10px;
+}
+.left_header_grid {
+  margin-left: 10px;
+}
+.post_cover_wrap {
+  width: 100% !important;
+  height: 225px !important;
+}
+}
+
 .scrollFixed .profile_left {
   position: fixed;
   width: 360px;
 }
+
 .scrollFixed .profile_right {
   margin-left: 370px;
   width: 505px;
 }
+
 .showLess .profile_left {
   bottom: 20px;
 }
+
 .showMore .profile_left {
   top: 50px;
 }
+
 .friendship {
   z-index: 9;
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .friendship .blue_btn {
   height: 35px;
 }
+
 @media (min-width: 900px) {
   .friendship {
     transform: translateX(-2rem);
   }
 }
+
 .fix {
   flex-direction: row !important;
 }
+
 .react-loading-skeleton {
   --base-color: #ccc !important;
   --highlight-color: #ddd !important;
 }
+
 .sekelton_loader {
   height: 100px;
   width: 100%;

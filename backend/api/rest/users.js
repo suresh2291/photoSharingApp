@@ -3,6 +3,8 @@ const router = express.Router();
 const services = require("../../services/appServices");
 const { authUser } = require("../../middlewares");
 const serviceInt = services.getInst();
+
+//routes used for users.
 router.post("/register", async (req, res, next) => {
   try {
     await serviceInt.registerUser(req, res, next);
@@ -166,6 +168,14 @@ router.put("/remove_search", authUser,async(req, res, next) => {
 router.get("/get_friends_list", authUser,async(req, res, next) => {
   try {
     await serviceInt.getFriendsPageInfos(req, res, next);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/chat", authUser,async(req, res, next) => {
+  try {
+    await serviceInt.chat(req, res, next);
   } catch (error) {
     next(error);
   }

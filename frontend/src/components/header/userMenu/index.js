@@ -1,3 +1,6 @@
+/**
+ * The components are responsible for rendering the user menu shown in right header where logout would display.
+ */
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

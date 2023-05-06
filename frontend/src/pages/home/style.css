@@ -14,15 +14,84 @@
 .home_middle {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin-left: -100px;
   margin-right: 100px;
-  justify-content: center;
-  align-items: center;
 }
+
+@media only screen and (min-width: 850px) and (max-width: 950px) {
+  .create_post,
+  .post {
+    margin-top: 1rem;
+  }
+  .home_middle,
+  .create_post,
+  .post { 
+    width: 98%;
+    margin: 1rem auto;
+  }
+  .send_verification {
+    width: 98%;
+    margin: 0 auto;
+  }
+  .stories {
+    grid-template-columns: repeat(6, 13vw);
+    padding-left: 10px;
+  }
+  .home_middle {
+    margin: 56px auto;
+  }
+  .create_post_body {
+    padding: 5px 0;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 450px){
+  .left_home .left_link span,
+  .left_home .left_link .col,
+  .shortcut,
+  .shortcut_item span,
+  .splitter{
+    display: none;
+  }
+  .left_home {
+   display: none;
+  }
+
+  .home_middle {
+    margin: 56px auto;
+  }
+  .create_post_body {
+    padding: 5px 0;
+  }
+  .right_home {
+    display: none;
+  }
+  .contacts_header_right {
+    right: 10%;
+  }
+  .contact_circle {
+    width: 20px;
+  }
+  .create_post,
+  .post {
+    margin-top: 1rem;
+    margin-left: 10px;
+  }
+  .create_post,
+  .post,
+  .send_verification {
+    width: 95%;
+  }
+  .left_home::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 
 /* @media (max-width: 1175px) {
   .stories,
-  .createPost,
+  .create_post,
   .post,
   .send_verification {
     width: 84%;
@@ -67,14 +136,14 @@
     width: 20px;
   }
   .stories,
-  .createPost,
+  .create_post,
   .post,
   .send_verification {
     width: 100%;
   }
 }
 @media (max-width: 960px) {
-  .createPost,
+  .create_post,
   .post,
   .send_verification {
     width: 93%;
@@ -103,7 +172,7 @@
   .right_home {
     display: none;
   }
-  .createPost,
+  .create_post,
   .post,
   .send_verification {
     width: 110%;
@@ -149,7 +218,7 @@
     margin-left: 0;
   }
   .stories,
-  .createPost,
+  .create_post,
   .post,
   .send_verification {
     width: 100%;
@@ -164,23 +233,23 @@
   .create_story_card {
     height: 30vw;
   }
-  .createPost_icon {
+  .create_post_icon {
     font-size: 12px;
   }
   .open_post {
     font-size: 16px;
   }
-  .createPost_icon svg {
+  .create_post_icon svg {
     width: 20px;
   }
 }
 @media (max-width: 400px) {
-  .createPost,
+  .create_post,
   .post {
     margin-top: 1rem;
   }
   .home_middle,
-  .createPost,
+  .create_post,
   .post { 
     width: 98%;
     margin: 1rem auto;
@@ -196,7 +265,7 @@
   .home_middle {
     margin: 56px auto;
   }
-  .createPost_body {
+  .create_post_body {
     padding: 5px 0;
   }
 } */

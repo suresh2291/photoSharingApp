@@ -7,14 +7,14 @@ import useClickOutside from "../../helpers/clickOutside";
 import { createPost } from "../../functions/post";
 import { Vortex } from 'react-loader-spinner'
 import PostError from "./PostError";
-import UploadForm from './UploadForm';
+import UploadImages from './UploadImages';
 
 export default function CreatePostPopup({ user, setPostVisible, posts, dispatch, profile }) {
   const popup = useRef(null);
   const [text, setText] = useState("");
   const [showPrev, setShowPrev] = useState(false);
   const [images, setImages] = useState([]);
-  const [uploadImages, setUploadImages] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [background, setBackground] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -141,7 +141,7 @@ export default function CreatePostPopup({ user, setPostVisible, posts, dispatch,
           </>
         ) : (
           <>
-          <UploadForm
+          <UploadImages
             text={text}
             user={user}
             setText={setText}
@@ -149,7 +149,7 @@ export default function CreatePostPopup({ user, setPostVisible, posts, dispatch,
             images={images}
             setImages={setImages}
             setShowPrev={setShowPrev}
-            setUploadImages={setUploadImages}
+            setUploadedImages={setUploadedImages}
             setError={setError}
             setPostVisible={setPostVisible}
           />

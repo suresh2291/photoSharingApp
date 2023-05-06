@@ -3,6 +3,7 @@ const router = express.Router();
 const services = require('../../services/appServices')
 const serviceInt = services.getInst();
 
+//reset password routes.
 router.post('/changepassword', async (req, res, next) => {
     try {
       await serviceInt.changePassword(req, res, next);

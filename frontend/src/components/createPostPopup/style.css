@@ -546,6 +546,7 @@
 
 .dropdown-menu {
   position:relative;
+  height:200px;
   overflow-y: auto;
   overflow-x: hidden;
 }

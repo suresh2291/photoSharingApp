@@ -1,8 +1,12 @@
+// Importing Mongoose and postModel, as well as serverConfig from configuration module
 const mongoose = require("../connectdb");
 const { serverConfig } = require("../../configs/index");
 const Post = require("../schemas/postModel");
+
+// Defining userSchema using mongoose.Schema()
 const userSchema = mongoose.Schema(
   {
+    // Defining various fields for the userSchema with data types and validation constraints
     firstName: {
       type: String,
       required: [true, "first name is required"],
@@ -29,7 +33,7 @@ const userSchema = mongoose.Schema(
       unique: true,
       validate: {
         validator: (value) => {
-          return /^[^\s@]+@[a-zA-Z-]+\.[a-zA-Z]{2,}$/.test(value);
+          return /^[^\s@]+@[a-zA-Z-]+\.[a-zA-Z]{2,}$/.test(value);//validating the email address
         },
         message: "Please enter a valid email address",
       },
@@ -46,12 +50,12 @@ const userSchema = mongoose.Schema(
     avatar: {
       type: String,
       trim: true,
-      default: serverConfig.avatar.default,
+      default: serverConfig.avatar.default,//setting the default profile pic
     },
     cover: {
       type: String,
       trim: true,
-      default: serverConfig.avatar.coverPic,
+      default: serverConfig.avatar.coverPic,//setting the default cover pic
     },
     gender: {
       type: String,
@@ -73,6 +77,7 @@ const userSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    //this is used to verify the activated user.
     verified: {
       type: Boolean,
       default: false,
@@ -102,6 +107,7 @@ const userSchema = mongoose.Schema(
       },
     ],
     search: [
+      // Defining sub-document array search with properties user and createdAt
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
@@ -115,6 +121,7 @@ const userSchema = mongoose.Schema(
       },
     ],
     details: {
+      // Defining details object containing various fields for additional user information
       bio: {
         type: String,
       },
@@ -148,6 +155,7 @@ const userSchema = mongoose.Schema(
       },
     },
     savedPosts: [
+      // Defining the sub-document array savedPosts with properties post and savedAt
       {
         post: {
           type: mongoose.Schema.Types.ObjectId,
@@ -161,10 +169,14 @@ const userSchema = mongoose.Schema(
     ],
   },
   {
+    // Setting timestamps option to true for createdAt and updatedAt fields, and collection name to 'users'
     timestamps: true,
     collection: "users",
   }
 );
+
+// Creating text index on firstName, lastName and userName fields of userSchema
 userSchema.index({ firstName: 'text', lastName: 'text', userName: 'text' }, { name: 'text_index' });
 
+// Exporting User model from the userSchema
 module.exports = mongoose.model("User", userSchema);

@@ -1,3 +1,8 @@
+/**
+ * Whatever routes we have defined, its respective logical code would be defined in this file
+ */
+
+//impoerting the required modules, npm packages, configs and DB schemas.
 const Code = require("../db/schemas/codeModel");
 const React = require("../db/schemas/reactModel");
 const Comment = require('../db/schemas/commentsModel');
@@ -25,16 +30,29 @@ const {
   cloudinaryProfileImages
 } = require("../modules/imageUpload");
 const mongoose = require("../db/connectdb");
+const { Configuration, OpenAIApi } = require("openai");
 function photoAppService() {}
 /*-----------------------------------USERS--------------------------------*/
+//This is used for testing whether the user route is working fine or not.
 photoAppService.prototype.getUsers = async function (req, res, next) {
   res.send("welcome from user home");
 };
 
+//This is used for Auth Middleware.
 photoAppService.prototype.Auth = async function (req, res, next) {
   res.send(`welcome from user`);
 };
 
+/**
+ * This is used for creating a new user.
+ * If the email address is available, then it generates a password hash using generatePassword() and validates the username. 
+ * The resulting username is a combination of the first name and last name without any spaces. 
+ * It also generates a random string token as the activation code for the new user.
+ * The function then uses the sendVerificationEmail() function to send an email verification to the email address provided by the user.
+ * If the email was sent successfully, it creates a new user using information about the user received from the request body 
+   along with the password hash, username, and activation code.
+ * It saves this information to the database using the save() function and generates a JWT token for the authenticated user.
+ */
 photoAppService.prototype.registerUser = async function (req, res, next) {
   try {
     const { firstName, lastName, email, gender, bYear, bMonth, bDay } =
@@ -50,10 +68,13 @@ photoAppService.prototype.registerUser = async function (req, res, next) {
 
     const password = await generatePassword(req.body.password);
     let tempUserName = firstName.replace(/\s+/g, '') + lastName.replace(/\s+/g, '');
-    let userName = await validateUsername(tempUserName);
+    let userName = await validateUsername(tempUserName);//is the username already exists, it will append a random number and generate username. 
 
     //const verifyEmail = generateToken({ id: user._id.toString() }, "30m");
     let code = crypto.randomUUID();
+    /**
+     * Here we generate the activate URL with frontend link. and send email. when user clicks on the link, from the fronend it will activate the account.
+     */
     const url = `${serverConfig.port.frontEndUrl}/activate?token=${code}`;
     const sendmail = await sendVerificationEmail(
       email,
@@ -581,6 +602,11 @@ photoAppService.prototype.getUserProfile = async function (req, res, next) {
     const { username } = req.query;
     const user = await User.findById(req.user.id);
     const profile = await User.findOne({ userName:username }).select("-password -code");
+    /**
+     * This objects helps for handling the friends in photoAnnomate.
+     * following, unfollow, requestsReceived and request send.
+     * as per the useres profile id, we would make it true.
+     */
     const friendship = {
       friends: false, //true - we are friends
       following: false, //true - I follow you.
@@ -970,6 +996,35 @@ photoAppService.prototype.getFriendsPageInfos = async (req, res) => {
   }
 };
 /*---------------------------Search------------------------*/
+/**
+ * Integrated open AI chatGPT.
+ */
+photoAppService.prototype.chat = async function (req, res) {
+  try {
+  const {input} = req.body
+  const user = await User.findById(req.user.id).select("userName");
+  const configuration = new Configuration({
+    apiKey: `${serverConfig.openai.apiKey}`,
+  });
+  const openai = new OpenAIApi(configuration);
+  if(input){
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: input,
+      max_tokens: 100,
+      temperature: 0.7,
+      top_p: 1.0,
+      frequency_penalty: 0.5,
+      presence_penalty: 0.0,
+    });
+    res.status(200).json({input,"output":response.data.choices[0].text.trim()});
+  }else{
+    res.status(200).json({"output":"please enter some input"});
+  }
+} catch (error) {
+  res.status(500).json({ message: error.message });
+}
+}
 
 module.exports = {
   getInst: function () {

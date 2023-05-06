@@ -7,7 +7,8 @@ Self made Full Stack Web Application using MongoDB, Express.js,React.js,  Node.j
 https://www.photoannomate.online/
 
 #### Demo Video
-https://www.youtube.com/watch?v=9N6YaDlDIwI
+Mobile Demo: https://www.youtube.com/watch?v=wA3FKxYxkMw
+Web Demo: https://www.youtube.com/watch?v=cKUMCm4lB24
 
 ## Technology 
 ### Frontend 
@@ -66,5 +67,6 @@ https://www.youtube.com/watch?v=9N6YaDlDIwI
 - Downlaoding the users Photos
 - Reacts
 - Dark and Light Mode 
+- Integrated ChatGPT
 - **and More....** 
 

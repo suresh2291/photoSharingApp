@@ -99,8 +99,22 @@
   .friends_left .mmenu_item span {
     display: none;
   }
+  .rightArrow {
+    display:none;
+  }
 }
-@media (max-width: 400px) {
+@media only screen and (min-width: 300px) and (max-width: 450px){
+  .rightArrow {
+    display:none;
+  }
+  .req_card img {
+    width: 100px !important;
+    height: 100px !important;
+    margin-top: 1rem;
+  }
+  .flex_wrap {
+    width: 131px !important;
+  }
   .friends_left_header h3 {
     font-size: 16px;
   }
@@ -111,5 +125,8 @@
 
   .friends_right {
     padding: 10px;
+  }
+  .user_menu_item span{
+    width: 100px;
   }
 }

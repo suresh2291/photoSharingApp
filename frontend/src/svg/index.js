@@ -30,6 +30,7 @@ import Minus from "./minus";
 import PlusIcon from "./plusIcon";
 import CloseIcon from "./closeIcon";
 import Pencil from "./pencil"
+import chatGPT from "./chatgpt";
 
 export {
   Logo,
@@ -63,5 +64,6 @@ export {
   Minus, 
   PlusIcon,
   CloseIcon,
-  Pencil
+  Pencil,
+  chatGPT
 };

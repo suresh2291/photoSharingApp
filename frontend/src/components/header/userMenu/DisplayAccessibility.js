@@ -1,3 +1,6 @@
+/**
+ * This component is responsible for displaying the menu for selecting Dark Mode and Compoact Mode
+ */
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -4,6 +4,9 @@ import { uploadImages } from "../../functions/uploadImages";
 import { comment } from "../../functions/post";
 import { ClipLoader } from "react-spinners";
 
+/**
+ * This component is responsible for adding comments,  Images to commponents and Emojis.
+ */
 export default function CreateComment({ user, postId, setComments, setCount }) {
   const [picker, setPicker] = useState(false);
   const [text, setText] = useState("");

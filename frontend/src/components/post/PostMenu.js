@@ -5,6 +5,9 @@ import useOnClickOutside from "../../helpers/clickOutside";
 import { useRef, useState } from "react";
 import { deletePost, savePost } from "../../functions/post";
 
+/**
+ * For each post we have a right side dropdowns for selecting the options, like fullscreen, download images, save post, delete post etc.
+ */
 export default function PostMenu({
   postUserId,
   userId,

@@ -23,13 +23,13 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Blocks } from "react-loader-spinner";
 import { getPosts } from "../../functions/post";
+import Chat from "../../components/home/chat";
 
 export default function Profile({}) {
   const [postVisible, setPostVisible] = useState(false);
   const { userName } = useParams();
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
-  //const [photos, setPhotos] = useState({});
   var username = userName === undefined ? user?.userName : userName;
 
   const [{ postLoading, posterror, posts }, dispatchPost] = useReducer(postsReducer, {
@@ -118,11 +118,9 @@ export default function Profile({}) {
     photos: {},
     photoError: "",
   });
-
   useEffect(() => {
     getData();
   }, []);
-  
   const getData = async () => {
     try {
       photoDispatch({ type: "PHOTOS_REQUEST" });
@@ -135,7 +133,6 @@ export default function Profile({}) {
           },
         }
       );
-      console.log(images.data)
       photoDispatch({ type: "PHOTOS_SUCCESS", payload: images.data });
     } catch (error) {
       photoDispatch({ type: "PHOTOS_ERROR", payload:error.response.data.message, });
@@ -351,10 +348,12 @@ export default function Profile({}) {
                       detailss={profile.details}
                       visitor={visitor}
                     />
-                    {/* {photos?.resources && <Photos
+                    {/* <Photos
+                      username={userName}
+                      token={user.token}
                       photos={photos}
-                    />} */}
-                    <Friends friends={profile?.friends} />
+                    /> */}
+                    <Friends friends={profile.friends} />
                   </>
                 )}
               </div>
@@ -385,6 +384,7 @@ export default function Profile({}) {
                     )}
                   </div>
                 )}
+                <Chat user={user}/>
               </div>
             </div>
           </div>

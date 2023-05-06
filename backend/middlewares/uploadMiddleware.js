@@ -1,3 +1,7 @@
+/**
+ * This Middleware helps user to upload images to cloudinary from frontend.
+ * In the fronened this is used for uploading Images, Profile Pic, Cover Pic, Annotated Pic.
+ */
 const errorHandler = require("../helpers/errors");
 const multer = require("multer");
 const fs = require("fs");
@@ -10,12 +14,18 @@ if (!fs.existsSync(tmpDir)) {
   fs.mkdirSync(tmpDir);
 }
 
+/**
+ * The above code is creating an instance of the multer disk storage. 
+ * Multer is a middleware that allows you to upload files in Node.js.
+ * The diskStorage() function takes in an object that has two properties: destination and filename.
+ * Here to make the filename unique, we have used the original name which has the original image file name uploaded by the user.
+ * 
+ */
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, tmpDir);
   },
   filename: function (req, file, cb) {
-    //console.log('multer filename:  ',req.body)
     if(req.body.filename){
       cb(null, 
         file.fieldname +"-" +req.body.filename.split(".")[0]+"." +file.originalname.split(".").pop());
@@ -38,10 +48,6 @@ const fileFilter = async function (req, file, cb) {
     if (!allowedTypes.includes(file.mimetype)) {
       return cb(new Error("Only jpeg and png images are allowed"));
     }
-    // const filePath = path.join(__dirname, "../../backend/uploads", file.fieldname +"-" +file.originalname.split(".")[0]+"." +file.originalname.split(".").pop());
-    // if (fs.existsSync(filePath)) {
-    //   return cb(new Error(`File with the same name already exists.`));
-    // }
     cb(null, true);
 };
 const upload = multer({

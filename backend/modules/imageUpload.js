@@ -1,3 +1,6 @@
+/**
+ * This module file is used forhandling images in the cloudinary.
+ */
 const sharp = require("sharp");
 const fs = require("fs");
 const crypto = require("crypto");
@@ -16,7 +19,16 @@ cloudinary.config({
   secure: true,
   cdn_subdomain: true,
 });
-
+/**
+ *This is used for compressing the images using sharp.
+ * compressImages, which accepts three parameters: path, destination, and filename. 
+ * The function uses the Sharp package to resize and compress an image before saving it to a destination folder with a new filename.
+ * 
+ * The options passed to the .resize() method are:
+ * fit: "inside": This option tells Sharp to scale the image to fit within the given dimensions (1024x600), but not to exceed them.
+ * withoutEnlargement: true: This option prevents Sharp from enlarging the image if its original dimensions are already smaller than the target dimensions.
+ * fastShrinkOnLoad: true: This option enables fast shrinking of images using the JPEG shrink-on-load technique, which can improve performance.
+ */
 async function compressImages(path, destination, filename){
   return await sharp(path)
           .resize(1024, 600, {
@@ -24,7 +36,7 @@ async function compressImages(path, destination, filename){
             withoutEnlargement: true,
             fastShrinkOnLoad: true,
           })
-          .jpeg({ quality: 70 })
+          .jpeg({ quality: 90 })
           .toFile(destination + filename);
 }
 
@@ -63,7 +75,7 @@ async function compressFiles(files, userId, filename, profilepic, coverpic) {
           file.destination + `\\cmprs_${file.filename}`
         );
       }
-
+//create a common object for string the image files data into DB.
       let commonObject = {
         fieldname: file.fieldname,
         originalname: file.originalname,
@@ -74,6 +86,11 @@ async function compressFiles(files, userId, filename, profilepic, coverpic) {
         size: data.length,
         userId: userId,
       }
+
+/**
+ * this below code helps to create aa unique filename and upload to cloudinary.
+ * we use publicId field when uploading to cloudinary.
+ */
       if (filename) {
         compressedFile = {
           ...commonObject,
@@ -124,6 +141,10 @@ async function compressFiles(files, userId, filename, profilepic, coverpic) {
   return compressedFiles;
 }
 
+/**
+ * This function is used for uploading files to cloudinary.Will pass the compressedFiles object which we have created in the above function and username path.
+ * This path will create a directory under the username, which helps us for storing images, profilepic, coverpic in the cloudinary. 
+ */
 async function uploadFiles(files, path) {
   try {
     const uploadPromises = files.map(
@@ -131,11 +152,11 @@ async function uploadFiles(files, path) {
         const uploadResult = await cloudinary.v2.uploader.upload(file.path, {
           folder: path,
           public_id: file.publicId,
-          overwrite: true,
+          overwrite: true,//if the user upload the same file it would overwrite which avoids duplication.
         });
         return { ...file, url: uploadResult.url, secure_url: uploadResult.secure_url };
       },
-      { concurrent: 5 }
+      { concurrent: 5 }//will be uploading 5 images at a time, instead of uploading all the images.
     ); // set the concurrent option to 5
 
     const uploadResults = await Promise.all(uploadPromises);
@@ -167,6 +188,7 @@ async function uploadToCloudinary(uri, path) {
   }
 }
 
+//This functions help to retrive all the images of the user.
 async function cloudinaryProfileImages(path, sort, max) {
   const result = await cloudinary.v2.search
     .expression(`${path}`)
@@ -176,34 +198,7 @@ async function cloudinaryProfileImages(path, sort, max) {
 
     return result;
 }
-/*async function uploadFiles(files, path) {
-  try {
-    const cloudinaryUrls = [],
-      insertIntoDBArr = [];
-    for (const file of files) {
-        const uploadResult = await cloudinary.v2.uploader.upload(file.path, {
-          folder: path,
-          public_id: file.publicId,
-          overwrite: true,
-          backup:true,
-          transformation: {
-            crop: "fill",
-            gravity: "auto",
-            quality: "auto",
-          },
-        });
-        insertIntoDBArr.push({ ...file, url: uploadResult.secure_url });
-        cloudinaryUrls.push({ url: uploadResult.secure_url });
-
-        await fs.promises.unlink(file.path);
-    }
-    return { cloudUrl: cloudinaryUrls, insertDB: insertIntoDBArr };
-  } catch (error) {
-    console.error(`Failed to upload file:`);
-    console.error(error);
-  }
-}*/
-
+//This will insert the images into the DB. The uploadFiles() we return the result insertDB, which helps in inserting into DB. 
 async function insertIntoDB(insertImages) {
   const promises = insertImages.map((doc) => {
     return Images.findOneAndUpdate({ filename: doc.filename }, doc, {

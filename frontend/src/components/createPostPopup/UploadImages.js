@@ -5,7 +5,8 @@ import EmojiPickerBackgrounds from "./EmojiPickerBackgrounds";
 import ImageGallery from "./ImageGallery";
 import useClickOutside from "../../helpers/clickOutside";
 
-export default function UploadForm({
+// This function exports the component 'UploadImages'
+export default function UploadImages({
   text,
   user,
   setText,
@@ -15,65 +16,71 @@ export default function UploadForm({
   setError,
   setPostVisible,
 }) {
+  // useState is called to create a loading state and file state with initial values of false and an empty object, respectively.
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState({});
+  
+  // useRef is called to create a reference to an HTML element (imageInputRef) that can be passed to other functions. Here, useClickOutside listens for when the user clicks outside of the imageInputRef element and sets the values of PostVisible and setShowPrev to true when this occurs.
   const imageInputRef = useRef(null);
   useClickOutside(imageInputRef, () => {
     setPostVisible(true);
     setShowPrev(true)
   });
+  
+  // This function handles when the user selects a file. It creates an array from the selected files, checks if there are more than 10 files selected and then iterates through each file to ensure it meets certain criteria (file type, size). If all requirements are met, it updates the state of the Images with the new images.
   const handleFileSelect = (event) => {
     try{
       setLoading(true);
-    let files = Array.from(event.target.files);
+      let files = Array.from(event.target.files);
 
-    if (files.length > 10) {
-      setError(`Please select 10 images.`);
-      setLoading(false);
-      return;
-    }
-    files.forEach(async (img) => {
-      const allowedTypes = ["image/jpeg", "image/png"];
-      if (!allowedTypes.includes(img.type)) {
-        setError(
-          `${img.name} format is unsupported ! only Jpeg, Png are allowed.`
-        );
-        files = files.filter((item) => item.name !== img.name);
+      if (files.length > 10) {
+        setError(`Please select 10 images.`);
         setLoading(false);
         return;
-      } else if (img.size >=5242880) {
-        setError(`${img.name} size is too large max 5mb allowed.`);
-        files = files.filter((item) => item.name !== img.name);
-        setLoading(false);
-        return;
-      } else {
-        setFile({fileName:img.name})
-        const path = `${user?.userName}/postImages`;
-        let formData = new FormData();
-        formData.append("path", path);
-        formData.append("userId", user?.id);
-        formData.append("images", img);
-
-        const response = await uploadImages(
-          formData,
-          path,
-          user?.id,
-          null,
-          null,
-          null,
-          user?.token
-        );
-        console.log(response);
-        setImages((images) => [...images, response[0]]);
       }
-      setLoading(false);
-    });
+      files.forEach(async (img) => {
+        const allowedTypes = ["image/jpeg", "image/png"];
+        if (!allowedTypes.includes(img.type)) {
+          setError(
+            `${img.name} format is unsupported ! only Jpeg, Png are allowed.`
+          );
+          files = files.filter((item) => item.name !== img.name);
+          setLoading(false);
+          return;
+        } else if (img.size >=5242880) {
+          setError(`${img.name} size is too large max 5mb allowed.`);
+          files = files.filter((item) => item.name !== img.name);
+          setLoading(false);
+          return;
+        } else {
+          setFile({fileName:img.name})
+          const path = `${user?.userName}/postImages`;
+          let formData = new FormData();
+          formData.append("path", path);
+          formData.append("userId", user?.id);
+          formData.append("images", img);
+
+          const response = await uploadImages(
+            formData,
+            path,
+            user?.id,
+            null,
+            null,
+            null,
+            user?.token
+          );
+          console.log(response);
+          setImages((images) => [...images, response[0]]);
+        }
+        setLoading(false);
+      });
     }catch(error){
       setError(error.response.data.message);
     }
     
   };
 
+  // This function returns the JSX that makes up the UploadImages component. When loading is true, a loading icon is shown and when images exist, they are displayed in an image gallery.
   return (
     <div className="overflow_a scrollbar">
       <EmojiPickerBackgrounds text={text} user={user} setText={setText} type2 />

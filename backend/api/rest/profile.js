@@ -4,6 +4,7 @@ const services = require('../../services/appServices')
 const serviceInt = services.getInst();
 const { authUser } = require("../../middlewares");
 
+//profile routes.
 router.get("/user_profile",authUser, async (req, res, next) => {
   try {
     await serviceInt.getUserProfile(req, res, next);

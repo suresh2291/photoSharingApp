@@ -3,6 +3,8 @@ const router = express.Router();
 const services = require("../../services/appServices");
 const serviceInt = services.getInst();
 const { authUser } = require("../../middlewares");
+
+//These are the routes for posts.
 router.post("/create", authUser, async (req, res, next) => {
   try {
     await serviceInt.createPost(req, res, next);

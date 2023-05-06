@@ -1,4 +1,9 @@
+/**
+ * This component is responsible for showing the images in create post, after uploading the images.
+ * when user clicks on the image then Annotation toolbar would appear.
+ */
 import React, { useRef, useState } from "react";
+import DrawingBoard from "./DrawingBoard";
 
 function ImageGallery({ images, file, user, setError, setImages}) {
 
@@ -64,6 +69,13 @@ function ImageGallery({ images, file, user, setError, setImages}) {
     {selectedImageIndex !== null && showModal && ( 
    <div className="postBox annotate-box">
    {/* <span>Images {selectedImageIndex + 1} to {images.length}</span> */}
+     <DrawingBoard
+       imageUrl={images[selectedImageIndex].url}
+       file={file}
+       setError={setError}
+       user={user}
+       setSelectedImageIndex={setSelectedImageIndex}
+     />
  </div>
       )}
     </div>

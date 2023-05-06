@@ -241,7 +241,13 @@
 /*----error and success styles -------*/
 
 /*----Media queries--------------*/
-
+@media only screen and (min-width: 600px) and (max-width: 1024px){
+  .register {
+    width: 290px;
+    height: 600px;
+    overflow-y: scroll;
+  }
+}
 @media (min-width: 850px) {
   .login_wrap {
     display: flex;
@@ -262,7 +268,8 @@
   }
   .login_1 span {
     font-size: 28px;
-    margin-left: -10rem;
+    margin-left: -3rem;
+    margin-right: -5rem;
   }
   .login_2_wrap {
     width: 400px;
@@ -285,7 +292,7 @@
   }
   .login_1 img{
     width: 480px;
-    margin-left: -7rem;
+    margin-left: -4rem;
   }
   .register {
     width: 400px;
@@ -301,7 +308,59 @@
     width: 350px;
   }
 }
+@media only screen and (min-width: 200px) and (max-width: 450px){
+  .login {
+    height: 100vh;
+    width: 100vw;
+    color: var(--color-primary);
+}
+  .login_2_wrap {
+    max-width: 300px;
+  }
+  .login_1 img{
+    width: 170px;
+    height:120px;
+    margin-left: 37px;
+  }
+  .input_wrap {
+    width: 270px !important;
+  }
+  .register_input_wrap input {
+    width: 260px !important;
+  }
 
+  .input_wrap input {
+    width:100px;
+    height:100px;
+  }
+  .register {
+    width: 290px;
+    height: 450px;
+    overflow-y: scroll;
+  }
+  .reg_line {
+    flex-direction: column;
+    padding: 0px 0;
+  }
+  .reg_grid select,
+  .reg_grid label {
+    width: 80px;
+    margin-left: -7px;
+  }
+  .reg_grid .input_error {
+    width: 350px;
+  }
+  .reg_infos {
+   display: none;
+}
+.open_signup {
+  width: 66% !important;
+  margin-top: -1rem;
+}
+.register_header {
+  border-bottom: none;
+}
+}
 /*----Media queries--------------*/
 
 /*-----Activate popup----*/

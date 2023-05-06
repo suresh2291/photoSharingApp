@@ -12,7 +12,11 @@ import { getPosts } from "../../functions/post";
 import CreatePostPopup from "../../components/createPostPopup";
 import { Blocks } from "react-loader-spinner";
 import { postsReducer } from "../../functions/reducers";
+import Chat from "../../components/home/chat";
 
+/**
+ * This page is responsible for showing the left, right and middle home page components
+ */
 export default function Home({ setPostVisible, postVisible }) {
   const { user } = useSelector((state) => ({ ...state }));
   const [{ postLoading, posts, error }, dispatch] = useReducer(postsReducer, {
@@ -56,7 +60,7 @@ export default function Home({ setPostVisible, postVisible }) {
     }
   };
   return (
-    <Row style={{ minWidth: "1200px" }}>
+    <Row>
       {postVisible && user && (
         <CreatePostPopup
           user={user}
@@ -96,6 +100,7 @@ export default function Home({ setPostVisible, postVisible }) {
       </Col>
       <Col xs={12} md={3}>
         <RightHome user={user} />
+        <Chat user={user}/>
       </Col>
     </Row>
   );

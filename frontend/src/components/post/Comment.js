@@ -1,5 +1,7 @@
 import Moment from "react-moment";
-
+/**
+ * This component is used to display comments.
+ */
 export default function Comment({ comment }) {
   return (
     <div className="comment">

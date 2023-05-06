@@ -239,3 +239,22 @@ export const getFriendsPageInfos = async (token) => {
     return error.response.data.message;
   }
 };
+
+export const chat = async (input, token) => {
+  try {
+    const { data } = await axios.post(
+      `${serverConfig.port.backendUrl}/${serverConfig.apiPath.users}/chat`,
+      {
+        input,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    return error.response.data.message;
+  }
+};
